@@ -218,6 +218,10 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_INVALID_IRQ</b>&#160;&#160;&#160;(-29)</td></tr>
 <tr class="memdesc:ga9473a1146463e7f6cd4f0a06ef7c7b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">The requested IRQ configuration is not valid for this module. <br /></td></tr>
 <tr class="separator:ga9473a1146463e7f6cd4f0a06ef7c7b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9dfcb1f392378622af79348adebb15c9" id="r_ga9dfcb1f392378622af79348adebb15c9"><td class="memItemLeft" align="right" valign="top"><a id="ga9dfcb1f392378622af79348adebb15c9" name="ga9dfcb1f392378622af79348adebb15c9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_PACKET_TOO_SHORT</b>&#160;&#160;&#160;(-30)</td></tr>
+<tr class="memdesc:ga9dfcb1f392378622af79348adebb15c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packet supplied to transmission method was shorter than required. <br /></td></tr>
+<tr class="separator:ga9dfcb1f392378622af79348adebb15c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac192dbf5134a10ed561100b01129224c" id="r_gac192dbf5134a10ed561100b01129224c"><td class="memItemLeft" align="right" valign="top"><a id="gac192dbf5134a10ed561100b01129224c" name="gac192dbf5134a10ed561100b01129224c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_INVALID_BIT_RATE</b>&#160;&#160;&#160;(-101)</td></tr>
 <tr class="memdesc:gac192dbf5134a10ed561100b01129224c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The supplied bit rate value is invalid. <br /></td></tr>
@@ -403,7 +407,7 @@ Macros</h2></td></tr>
 <tr class="separator:ga5133c0c17301cfc39ac6121c5851292f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8b424bb8992a6ac80e2ba46667bf9c6e" id="r_ga8b424bb8992a6ac80e2ba46667bf9c6e"><td class="memItemLeft" align="right" valign="top"><a id="ga8b424bb8992a6ac80e2ba46667bf9c6e" name="ga8b424bb8992a6ac80e2ba46667bf9c6e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_UPLINK_UNAVAILABLE</b>&#160;&#160;&#160;(-1108)</td></tr>
-<tr class="memdesc:ga8b424bb8992a6ac80e2ba46667bf9c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">User requested to start uplink while still inside RX window or under dutycycle. <br /></td></tr>
+<tr class="memdesc:ga8b424bb8992a6ac80e2ba46667bf9c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">User requested to start uplink while under dutycycle. <br /></td></tr>
 <tr class="separator:ga8b424bb8992a6ac80e2ba46667bf9c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga442250961d11f2582857cd1eafe0df17" id="r_ga442250961d11f2582857cd1eafe0df17"><td class="memItemLeft" align="right" valign="top"><a id="ga442250961d11f2582857cd1eafe0df17" name="ga442250961d11f2582857cd1eafe0df17"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_COMMAND_QUEUE_FULL</b>&#160;&#160;&#160;(-1109)</td></tr>
@@ -417,14 +421,14 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_JOIN_NONCE_INVALID</b>&#160;&#160;&#160;(-1111)</td></tr>
 <tr class="memdesc:ga68c7f7b8c699dbd6524da685be476fca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unable to join network because JoinNonce is not higher than saved value. <br /></td></tr>
 <tr class="separator:ga68c7f7b8c699dbd6524da685be476fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac67f8a734c2011f738db1a3159403e09" id="r_gac67f8a734c2011f738db1a3159403e09"><td class="memItemLeft" align="right" valign="top"><a id="gac67f8a734c2011f738db1a3159403e09" name="gac67f8a734c2011f738db1a3159403e09"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_N_FCNT_DOWN_INVALID</b>&#160;&#160;&#160;(-1112)</td></tr>
-<tr class="memdesc:gac67f8a734c2011f738db1a3159403e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Received downlink Network frame counter is invalid (lower than last heard value). <br /></td></tr>
-<tr class="separator:gac67f8a734c2011f738db1a3159403e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga81bd164044ef4d523464ad17d1e473bb" id="r_ga81bd164044ef4d523464ad17d1e473bb"><td class="memItemLeft" align="right" valign="top"><a id="ga81bd164044ef4d523464ad17d1e473bb" name="ga81bd164044ef4d523464ad17d1e473bb"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_A_FCNT_DOWN_INVALID</b>&#160;&#160;&#160;(-1113)</td></tr>
-<tr class="memdesc:ga81bd164044ef4d523464ad17d1e473bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Received downlink Application frame counter is invalid (lower than last heard value). <br /></td></tr>
-<tr class="separator:ga81bd164044ef4d523464ad17d1e473bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga72766507100035da092be0c0719c103c" id="r_ga72766507100035da092be0c0719c103c"><td class="memItemLeft" align="right" valign="top"><a id="ga72766507100035da092be0c0719c103c" name="ga72766507100035da092be0c0719c103c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_MIC_MISMATCH</b>&#160;&#160;&#160;(-1112)</td></tr>
+<tr class="memdesc:ga72766507100035da092be0c0719c103c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The downlink MIC could not be verified (incorrect key or invalid FCnt) <br /></td></tr>
+<tr class="separator:ga72766507100035da092be0c0719c103c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9caf2e095dea4df9a0fdab33d338459d" id="r_ga9caf2e095dea4df9a0fdab33d338459d"><td class="memItemLeft" align="right" valign="top"><a id="ga9caf2e095dea4df9a0fdab33d338459d" name="ga9caf2e095dea4df9a0fdab33d338459d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_MULTICAST_FCNT_INVALID</b>&#160;&#160;&#160;(-1113)</td></tr>
+<tr class="memdesc:ga9caf2e095dea4df9a0fdab33d338459d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multicast frame counter is invalid (outside bounds). <br /></td></tr>
+<tr class="separator:ga9caf2e095dea4df9a0fdab33d338459d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac78ef1a402159a3be27a6b92268106b7" id="r_gac78ef1a402159a3be27a6b92268106b7"><td class="memItemLeft" align="right" valign="top"><a id="gac78ef1a402159a3be27a6b92268106b7" name="gac78ef1a402159a3be27a6b92268106b7"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_DWELL_TIME_EXCEEDED</b>&#160;&#160;&#160;(-1114)</td></tr>
 <tr class="memdesc:gac78ef1a402159a3be27a6b92268106b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uplink payload length at this datarate exceeds the active dwell time limitations. <br /></td></tr>
@@ -485,6 +489,22 @@ Macros</h2></td></tr>
 <tr class="memitem:gac885e9d1fe4fbc2fde012d0ed857d840" id="r_gac885e9d1fe4fbc2fde012d0ed857d840"><td class="memItemLeft" align="right" valign="top"><a id="gac885e9d1fe4fbc2fde012d0ed857d840" name="gac885e9d1fe4fbc2fde012d0ed857d840"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_GET_GNSS_SOLVER_ERROR</b>(X)&#160;&#160;&#160;(-((X) - <a class="el" href="group__status__codes.html#ga25700f55a8dfaa3aa8076b51528d74f9">RADIOLIB_ERR_GNSS_SOLVER_OFFSET</a>))</td></tr>
 <tr class="separator:gac885e9d1fe4fbc2fde012d0ed857d840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec102c0ca0b62c991cc187a51a5a576b" id="r_gaec102c0ca0b62c991cc187a51a5a576b"><td class="memItemLeft" align="right" valign="top"><a id="gaec102c0ca0b62c991cc187a51a5a576b" name="gaec102c0ca0b62c991cc187a51a5a576b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_FRONTEND_CALIBRATION_FAILED</b>&#160;&#160;&#160;(-1300)</td></tr>
+<tr class="memdesc:gaec102c0ca0b62c991cc187a51a5a576b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Front end calibration failed. Often this is caused by a neraby high-power transmitter. <br /></td></tr>
+<tr class="separator:gaec102c0ca0b62c991cc187a51a5a576b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3b954c1cd34a1d25bc6e31871dd2d26c" id="r_ga3b954c1cd34a1d25bc6e31871dd2d26c"><td class="memItemLeft" align="right" valign="top"><a id="ga3b954c1cd34a1d25bc6e31871dd2d26c" name="ga3b954c1cd34a1d25bc6e31871dd2d26c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_INVALID_SIDE_DETECT</b>&#160;&#160;&#160;(-1301)</td></tr>
+<tr class="memdesc:ga3b954c1cd34a1d25bc6e31871dd2d26c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multi-SF side detector configuration is invalid. <br /></td></tr>
+<tr class="separator:ga3b954c1cd34a1d25bc6e31871dd2d26c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga75a3b3f2299a04a0bb52c22d868a1a7b" id="r_ga75a3b3f2299a04a0bb52c22d868a1a7b"><td class="memItemLeft" align="right" valign="top"><a id="ga75a3b3f2299a04a0bb52c22d868a1a7b" name="ga75a3b3f2299a04a0bb52c22d868a1a7b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_ADSB_INVALID_MSG_TYPE</b>&#160;&#160;&#160;(-1400)</td></tr>
+<tr class="memdesc:ga75a3b3f2299a04a0bb52c22d868a1a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message type is invalid for this operation. <br /></td></tr>
+<tr class="separator:ga75a3b3f2299a04a0bb52c22d868a1a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga07f5bd5f1eb62c8129f808c90e96a21d" id="r_ga07f5bd5f1eb62c8129f808c90e96a21d"><td class="memItemLeft" align="right" valign="top"><a id="ga07f5bd5f1eb62c8129f808c90e96a21d" name="ga07f5bd5f1eb62c8129f808c90e96a21d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RADIOLIB_ERR_ADSB_INVALID_CATEGORY</b>&#160;&#160;&#160;(-1401)</td></tr>
+<tr class="memdesc:ga07f5bd5f1eb62c8129f808c90e96a21d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parsed aircraft category is invalid. <br /></td></tr>
+<tr class="separator:ga07f5bd5f1eb62c8129f808c90e96a21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <h2 class="groupheader">Macro Definition Documentation</h2>

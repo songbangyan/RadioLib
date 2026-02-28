@@ -35,7 +35,7 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ]
@@ -54,13 +54,14 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_a_f_s_k_8h_source.html",
-"class_l_r1120.html#a4c6b867146f00de5c45aeb4164d51cc5",
-"class_physical_layer.html#a923654706eff5118ef6e84214e837f27",
-"class_s_t_m32_w_lx.html#ad96d18fea2a7fffa959b64c8c5d993a8",
-"class_s_x127x.html#a48ca43e6aad02815fa1507f0f0831c54",
-"classn_r_f24.html#a760d3f47f58ddacdf41975447484a47c",
-"lr1110__transceiver__0307_8h.html#a3e84b323eea7cc20fb619e3d48818e64"
+"_a_d_s_b_8h_source.html",
+"class_l_l_c_c68.html#abf66e5649ac09e5997e29cf637803261",
+"class_lo_ra_w_a_n_node.html#a3c81fcfaa0d1a82f1f4e96e335713f8c",
+"class_r_f69.html#ade1f9a7a603d712c480ed5e9a8d1bf51",
+"class_s_x126x.html#ae731568798d03d9722a440fd6a23faf2",
+"class_s_x128x.html#a8720a388d2cd10fac3112b89f4a80947",
+"functions_vars_g.html",
+"struct_l_r11x0_gnss_result__t.html#a2fcd901f5815f3e4760f61d2bc7a7a9b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
