@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2026-04-13 12:20:23</td>
+            <td class="headerValue">2026-04-17 06:20:09</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -399,13 +399,13 @@
 <a name="337"><span class="lineNum">     337 </span><span class="lineCov">         16 :   return(this-&gt;SPIcommand(cmd, true, buff, sizeof(buff)));</span></a>
 <a name="338"><span class="lineNum">     338 </span>            : }</a>
 <a name="339"><span class="lineNum">     339 </span>            : </a>
-<a name="340"><span class="lineNum">     340 </span><span class="lineCov">       3062 : int16_t LRxxxx::SPIparseStatus(uint8_t in) {</span></a>
-<a name="341"><span class="lineNum">     341 </span><span class="lineCov">       3062 :   if((in &amp; 0b00001110) == RADIOLIB_LRXXXX_STAT_1_CMD_PERR) {</span></a>
+<a name="340"><span class="lineNum">     340 </span><span class="lineCov">       3059 : int16_t LRxxxx::SPIparseStatus(uint8_t in) {</span></a>
+<a name="341"><span class="lineNum">     341 </span><span class="lineCov">       3059 :   if((in &amp; 0b00001110) == RADIOLIB_LRXXXX_STAT_1_CMD_PERR) {</span></a>
 <a name="342"><span class="lineNum">     342 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_SPI_CMD_INVALID);</span></a>
-<a name="343"><span class="lineNum">     343 </span><span class="lineCov">       3062 :   } else if((in &amp; 0b00001110) == RADIOLIB_LRXXXX_STAT_1_CMD_FAIL) {</span></a>
+<a name="343"><span class="lineNum">     343 </span><span class="lineCov">       3059 :   } else if((in &amp; 0b00001110) == RADIOLIB_LRXXXX_STAT_1_CMD_FAIL) {</span></a>
 <a name="344"><span class="lineNum">     344 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_SPI_CMD_FAILED);</span></a>
-<a name="345"><span class="lineNum">     345 </span><span class="lineCov">       3062 :   } else if((in == 0x00) || (in == 0xFF)) {</span></a>
-<a name="346"><span class="lineNum">     346 </span><span class="lineCov">       3062 :     return(RADIOLIB_ERR_CHIP_NOT_FOUND);</span></a>
+<a name="345"><span class="lineNum">     345 </span><span class="lineCov">       3059 :   } else if((in == 0x00) || (in == 0xFF)) {</span></a>
+<a name="346"><span class="lineNum">     346 </span><span class="lineCov">       3059 :     return(RADIOLIB_ERR_CHIP_NOT_FOUND);</span></a>
 <a name="347"><span class="lineNum">     347 </span>            :   }</a>
 <a name="348"><span class="lineNum">     348 </span><span class="lineNoCov">          0 :   return(RADIOLIB_ERR_NONE);</span></a>
 <a name="349"><span class="lineNum">     349 </span>            : }</a>

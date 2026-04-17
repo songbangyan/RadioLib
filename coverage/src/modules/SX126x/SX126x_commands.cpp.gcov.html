@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2026-04-13 12:20:23</td>
+            <td class="headerValue">2026-04-17 06:20:09</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">11</td>
@@ -264,10 +264,10 @@
 <a name="202"><span class="lineNum">     202 </span><span class="lineNoCov">          0 :   return(state);</span></a>
 <a name="203"><span class="lineNum">     203 </span>            : }</a>
 <a name="204"><span class="lineNum">     204 </span>            : </a>
-<a name="205"><span class="lineNum">     205 </span><span class="lineCov">         60 : uint8_t SX126x::getPacketType() {</span></a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         60 :   uint8_t data = 0xFF;</span></a>
-<a name="207"><span class="lineNum">     207 </span><span class="lineCov">         60 :   this-&gt;mod-&gt;SPIreadStream(RADIOLIB_SX126X_CMD_GET_PACKET_TYPE, &amp;data, 1);</span></a>
-<a name="208"><span class="lineNum">     208 </span><span class="lineCov">         60 :   return(data);</span></a>
+<a name="205"><span class="lineNum">     205 </span><span class="lineCov">         57 : uint8_t SX126x::getPacketType() {</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         57 :   uint8_t data = 0xFF;</span></a>
+<a name="207"><span class="lineNum">     207 </span><span class="lineCov">         57 :   this-&gt;mod-&gt;SPIreadStream(RADIOLIB_SX126X_CMD_GET_PACKET_TYPE, &amp;data, 1);</span></a>
+<a name="208"><span class="lineNum">     208 </span><span class="lineCov">         57 :   return(data);</span></a>
 <a name="209"><span class="lineNum">     209 </span>            : }</a>
 <a name="210"><span class="lineNum">     210 </span>            : </a>
 <a name="211"><span class="lineNum">     211 </span><span class="lineNoCov">          0 : int16_t SX126x::setTxParams(uint8_t pwr, uint8_t rampTime) {</span></a>
