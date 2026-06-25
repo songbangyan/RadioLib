@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">185</td>
-            <td class="headerCovTableEntry">984</td>
-            <td class="headerCovTableEntryLo">18.8 %</td>
+            <td class="headerCovTableEntry">991</td>
+            <td class="headerCovTableEntryLo">18.7 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2026-06-21 06:18:53</td>
+            <td class="headerValue">2026-06-25 12:20:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">42</td>
@@ -1747,170 +1747,186 @@
 <a name="1685"><span class="lineNum">    1685 </span><span class="lineNoCov">          0 : bool LR11x0::findChip(uint8_t ver) {</span></a>
 <a name="1686"><span class="lineNum">    1686 </span><span class="lineNoCov">          0 :   uint8_t i = 0;</span></a>
 <a name="1687"><span class="lineNum">    1687 </span><span class="lineNoCov">          0 :   bool flagFound = false;</span></a>
-<a name="1688"><span class="lineNum">    1688 </span><span class="lineNoCov">          0 :   while((i &lt; 10) &amp;&amp; !flagFound) {</span></a>
-<a name="1689"><span class="lineNum">    1689 </span>            :     // reset the module</a>
-<a name="1690"><span class="lineNum">    1690 </span><span class="lineNoCov">          0 :     reset();</span></a>
-<a name="1691"><span class="lineNum">    1691 </span>            : </a>
-<a name="1692"><span class="lineNum">    1692 </span>            :     // read the version</a>
-<a name="1693"><span class="lineNum">    1693 </span>            :     LR11x0VersionInfo_t info;</a>
-<a name="1694"><span class="lineNum">    1694 </span><span class="lineNoCov">          0 :     int16_t state = getVersionInfo(&amp;info);</span></a>
+<a name="1688"><span class="lineNum">    1688 </span>            :   LR11x0VersionInfo_t versionInfo;</a>
+<a name="1689"><span class="lineNum">    1689 </span><span class="lineNoCov">          0 :   while((i &lt; 10) &amp;&amp; !flagFound) {</span></a>
+<a name="1690"><span class="lineNum">    1690 </span>            :     // reset the module</a>
+<a name="1691"><span class="lineNum">    1691 </span><span class="lineNoCov">          0 :     reset();</span></a>
+<a name="1692"><span class="lineNum">    1692 </span>            : </a>
+<a name="1693"><span class="lineNum">    1693 </span>            :     // read the version</a>
+<a name="1694"><span class="lineNum">    1694 </span><span class="lineNoCov">          0 :     int16_t state = getVersionInfo(&amp;versionInfo);</span></a>
 <a name="1695"><span class="lineNum">    1695 </span><span class="lineNoCov">          0 :     RADIOLIB_ASSERT(state);</span></a>
 <a name="1696"><span class="lineNum">    1696 </span>            : </a>
-<a name="1697"><span class="lineNum">    1697 </span><span class="lineNoCov">          0 :     if((info.device == ver) || (info.device == RADIOLIB_LR11X0_DEVICE_BOOT)) {</span></a>
-<a name="1698"><span class="lineNum">    1698 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Found LR11x0: RADIOLIB_LR11X0_CMD_GET_VERSION = 0x%02x&quot;, info.device);</a>
-<a name="1699"><span class="lineNum">    1699 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Base FW version: %d.%d&quot;, (int)info.fwMajor, (int)info.fwMinor);</a>
-<a name="1700"><span class="lineNum">    1700 </span><span class="lineNoCov">          0 :       if(this-&gt;chipType != RADIOLIB_LR11X0_DEVICE_LR1121) {</span></a>
-<a name="1701"><span class="lineNum">    1701 </span>            :         RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;WiFi FW version: %d.%d&quot;, (int)info.fwMajorWiFi, (int)info.fwMinorWiFi);</a>
-<a name="1702"><span class="lineNum">    1702 </span>            :         RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;GNSS FW version: %d.%d&quot;, (int)info.fwGNSS, (int)info.almanacGNSS);</a>
-<a name="1703"><span class="lineNum">    1703 </span>            :       }</a>
-<a name="1704"><span class="lineNum">    1704 </span><span class="lineNoCov">          0 :       if(info.device == RADIOLIB_LR11X0_DEVICE_BOOT) {</span></a>
-<a name="1705"><span class="lineNum">    1705 </span>            :         RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Warning: device is in bootloader mode! Only FW update is possible now.&quot;);</a>
-<a name="1706"><span class="lineNum">    1706 </span>            :       }</a>
-<a name="1707"><span class="lineNum">    1707 </span><span class="lineNoCov">          0 :       flagFound = true;</span></a>
-<a name="1708"><span class="lineNum">    1708 </span>            :     } else {</a>
-<a name="1709"><span class="lineNum">    1709 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;LR11x0 not found! (%d of 10 tries) RADIOLIB_LR11X0_CMD_GET_VERSION = 0x%02x&quot;, i + 1, info.device);</a>
-<a name="1710"><span class="lineNum">    1710 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Expected: 0x%02x&quot;, ver);</a>
-<a name="1711"><span class="lineNum">    1711 </span><span class="lineNoCov">          0 :       this-&gt;mod-&gt;hal-&gt;delay(10);</span></a>
-<a name="1712"><span class="lineNum">    1712 </span><span class="lineNoCov">          0 :       i++;</span></a>
-<a name="1713"><span class="lineNum">    1713 </span>            :     }</a>
-<a name="1714"><span class="lineNum">    1714 </span>            :   }</a>
-<a name="1715"><span class="lineNum">    1715 </span>            :   </a>
+<a name="1697"><span class="lineNum">    1697 </span><span class="lineNoCov">          0 :     if((versionInfo.device == ver) || (versionInfo.device == RADIOLIB_LR11X0_DEVICE_BOOT)) {</span></a>
+<a name="1698"><span class="lineNum">    1698 </span><span class="lineNoCov">          0 :       this-&gt;versionDevice = versionInfo.device;</span></a>
+<a name="1699"><span class="lineNum">    1699 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Found LR11x0: RADIOLIB_LR11X0_CMD_GET_VERSION = 0x%02x&quot;, versionInfo.device);</a>
+<a name="1700"><span class="lineNum">    1700 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Base FW version: %d.%d&quot;, (int)versionInfo.fwMajor, (int)versionInfo.fwMinor);</a>
+<a name="1701"><span class="lineNum">    1701 </span><span class="lineNoCov">          0 :       if(this-&gt;chipType != RADIOLIB_LR11X0_DEVICE_LR1121) {</span></a>
+<a name="1702"><span class="lineNum">    1702 </span>            :         RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;WiFi FW version: %d.%d&quot;, (int)versionInfo.fwMajorWiFi, (int)versionInfo.fwMinorWiFi);</a>
+<a name="1703"><span class="lineNum">    1703 </span>            :         RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;GNSS FW version: %d.%d&quot;, (int)versionInfo.fwGNSS, (int)versionInfo.almanacGNSS);</a>
+<a name="1704"><span class="lineNum">    1704 </span>            :       }</a>
+<a name="1705"><span class="lineNum">    1705 </span><span class="lineNoCov">          0 :       if(versionInfo.device == RADIOLIB_LR11X0_DEVICE_BOOT) {</span></a>
+<a name="1706"><span class="lineNum">    1706 </span>            :         RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Warning: device is in bootloader mode! Only FW update is possible now.&quot;);</a>
+<a name="1707"><span class="lineNum">    1707 </span>            :       }</a>
+<a name="1708"><span class="lineNum">    1708 </span><span class="lineNoCov">          0 :       flagFound = true;</span></a>
+<a name="1709"><span class="lineNum">    1709 </span>            :     } else {</a>
+<a name="1710"><span class="lineNum">    1710 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;LR11x0 not found! (%d of 10 tries) RADIOLIB_LR11X0_CMD_GET_VERSION = 0x%02x&quot;, i + 1, versionInfo.device);</a>
+<a name="1711"><span class="lineNum">    1711 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Expected: 0x%02x&quot;, ver);</a>
+<a name="1712"><span class="lineNum">    1712 </span><span class="lineNoCov">          0 :       this-&gt;mod-&gt;hal-&gt;delay(10);</span></a>
+<a name="1713"><span class="lineNum">    1713 </span><span class="lineNoCov">          0 :       i++;</span></a>
+<a name="1714"><span class="lineNum">    1714 </span>            :     }</a>
+<a name="1715"><span class="lineNum">    1715 </span>            :   }</a>
 <a name="1716"><span class="lineNum">    1716 </span>            : </a>
-<a name="1717"><span class="lineNum">    1717 </span><span class="lineNoCov">          0 :   return(flagFound);</span></a>
-<a name="1718"><span class="lineNum">    1718 </span>            : }</a>
-<a name="1719"><span class="lineNum">    1719 </span>            : </a>
-<a name="1720"><span class="lineNum">    1720 </span><span class="lineNoCov">          0 : int16_t LR11x0::config(uint8_t modem) {</span></a>
-<a name="1721"><span class="lineNum">    1721 </span><span class="lineNoCov">          0 :   int16_t state = RADIOLIB_ERR_UNKNOWN;</span></a>
-<a name="1722"><span class="lineNum">    1722 </span>            : </a>
-<a name="1723"><span class="lineNum">    1723 </span>            :   // set Rx/Tx fallback mode to STDBY_RC</a>
-<a name="1724"><span class="lineNum">    1724 </span><span class="lineNoCov">          0 :   state = this-&gt;setRxTxFallbackMode(RADIOLIB_LR11X0_FALLBACK_MODE_STBY_RC);</span></a>
-<a name="1725"><span class="lineNum">    1725 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1726"><span class="lineNum">    1726 </span>            : </a>
-<a name="1727"><span class="lineNum">    1727 </span>            :   // clear IRQ</a>
-<a name="1728"><span class="lineNum">    1728 </span><span class="lineNoCov">          0 :   state = this-&gt;clearIrqState(RADIOLIB_LR11X0_IRQ_ALL);</span></a>
-<a name="1729"><span class="lineNum">    1729 </span><span class="lineNoCov">          0 :   state |= this-&gt;setDioIrqParams(RADIOLIB_LR11X0_IRQ_NONE);</span></a>
-<a name="1730"><span class="lineNum">    1730 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1731"><span class="lineNum">    1731 </span>            : </a>
-<a name="1732"><span class="lineNum">    1732 </span>            :   // calibrate all blocks</a>
-<a name="1733"><span class="lineNum">    1733 </span><span class="lineNoCov">          0 :   state = this-&gt;calibrate(RADIOLIB_LR11X0_CALIBRATE_ALL);</span></a>
-<a name="1734"><span class="lineNum">    1734 </span>            : </a>
-<a name="1735"><span class="lineNum">    1735 </span>            :   // wait for calibration completion</a>
-<a name="1736"><span class="lineNum">    1736 </span><span class="lineNoCov">          0 :   this-&gt;mod-&gt;hal-&gt;delay(5);</span></a>
-<a name="1737"><span class="lineNum">    1737 </span><span class="lineNoCov">          0 :   while(this-&gt;mod-&gt;hal-&gt;digitalRead(this-&gt;mod-&gt;getGpio())) {</span></a>
-<a name="1738"><span class="lineNum">    1738 </span><span class="lineNoCov">          0 :     this-&gt;mod-&gt;hal-&gt;yield();</span></a>
-<a name="1739"><span class="lineNum">    1739 </span>            :   }</a>
-<a name="1740"><span class="lineNum">    1740 </span>            :   </a>
-<a name="1741"><span class="lineNum">    1741 </span>            :   // if something failed, show the device errors</a>
-<a name="1742"><span class="lineNum">    1742 </span>            :   #if RADIOLIB_DEBUG_BASIC</a>
-<a name="1743"><span class="lineNum">    1743 </span>            :   if(state != RADIOLIB_ERR_NONE) {</a>
-<a name="1744"><span class="lineNum">    1744 </span>            :     // unless mode is forced to standby, device errors will be 0</a>
-<a name="1745"><span class="lineNum">    1745 </span>            :     standby();</a>
-<a name="1746"><span class="lineNum">    1746 </span>            :     uint16_t errors = 0;</a>
-<a name="1747"><span class="lineNum">    1747 </span>            :     getErrors(&amp;errors);</a>
-<a name="1748"><span class="lineNum">    1748 </span>            :     RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Calibration failed, device errors: 0x%X&quot;, errors);</a>
-<a name="1749"><span class="lineNum">    1749 </span>            :   }</a>
-<a name="1750"><span class="lineNum">    1750 </span>            :   #else</a>
-<a name="1751"><span class="lineNum">    1751 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1752"><span class="lineNum">    1752 </span>            :   #endif</a>
-<a name="1753"><span class="lineNum">    1753 </span>            : </a>
-<a name="1754"><span class="lineNum">    1754 </span>            :   // enable driving DIOs in sleep mode</a>
-<a name="1755"><span class="lineNum">    1755 </span>            :   // this prevents IRQ going high when the device goes to sleep</a>
-<a name="1756"><span class="lineNum">    1756 </span>            :   // especially when using Rx duty cycle, this woukld make it look like received packets</a>
-<a name="1757"><span class="lineNum">    1757 </span>            :   // there seems to be no measurable impact on power consumption in sleep mode</a>
-<a name="1758"><span class="lineNum">    1758 </span><span class="lineNoCov">          0 :   state = this-&gt;driveDiosInSleepMode(true);</span></a>
-<a name="1759"><span class="lineNum">    1759 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1760"><span class="lineNum">    1760 </span>            : </a>
-<a name="1761"><span class="lineNum">    1761 </span>            :   // set modem</a>
-<a name="1762"><span class="lineNum">    1762 </span><span class="lineNoCov">          0 :   state = this-&gt;setPacketType(modem);</span></a>
-<a name="1763"><span class="lineNum">    1763 </span><span class="lineNoCov">          0 :   return(state);</span></a>
-<a name="1764"><span class="lineNum">    1764 </span>            : }</a>
-<a name="1765"><span class="lineNum">    1765 </span>            : </a>
-<a name="1766"><span class="lineNum">    1766 </span><span class="lineNoCov">          0 : int16_t LR11x0::setPacketMode(uint8_t mode, uint8_t len) {</span></a>
-<a name="1767"><span class="lineNum">    1767 </span>            :   // check active modem</a>
-<a name="1768"><span class="lineNum">    1768 </span><span class="lineNoCov">          0 :   uint8_t type = RADIOLIB_LR11X0_PACKET_TYPE_NONE;</span></a>
-<a name="1769"><span class="lineNum">    1769 </span><span class="lineNoCov">          0 :   int16_t state = getPacketType(&amp;type);</span></a>
-<a name="1770"><span class="lineNum">    1770 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1771"><span class="lineNum">    1771 </span><span class="lineNoCov">          0 :   if(type != RADIOLIB_LR11X0_PACKET_TYPE_GFSK) {</span></a>
-<a name="1772"><span class="lineNum">    1772 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_WRONG_MODEM);</span></a>
-<a name="1773"><span class="lineNum">    1773 </span>            :   }</a>
-<a name="1774"><span class="lineNum">    1774 </span>            : </a>
-<a name="1775"><span class="lineNum">    1775 </span>            :   // set requested packet mode</a>
-<a name="1776"><span class="lineNum">    1776 </span><span class="lineNoCov">          0 :   state = setPacketParamsGFSK(this-&gt;preambleLengthGFSK, this-&gt;preambleDetLength, this-&gt;syncWordLength, this-&gt;addrComp, mode, len, this-&gt;crcTypeGFSK, this-&gt;whitening);</span></a>
-<a name="1777"><span class="lineNum">    1777 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1778"><span class="lineNum">    1778 </span>            : </a>
-<a name="1779"><span class="lineNum">    1779 </span>            :   // update cached value</a>
-<a name="1780"><span class="lineNum">    1780 </span><span class="lineNoCov">          0 :   this-&gt;packetType = mode;</span></a>
-<a name="1781"><span class="lineNum">    1781 </span><span class="lineNoCov">          0 :   return(state);</span></a>
-<a name="1782"><span class="lineNum">    1782 </span>            : }</a>
-<a name="1783"><span class="lineNum">    1783 </span>            : </a>
-<a name="1784"><span class="lineNum">    1784 </span><span class="lineNoCov">          0 : int16_t LR11x0::startCad(uint8_t symbolNum, uint8_t detPeak, uint8_t detMin, uint8_t exitMode, RadioLibTime_t timeout) {</span></a>
-<a name="1785"><span class="lineNum">    1785 </span>            :   // check active modem</a>
-<a name="1786"><span class="lineNum">    1786 </span><span class="lineNoCov">          0 :   uint8_t type = RADIOLIB_LR11X0_PACKET_TYPE_NONE;</span></a>
-<a name="1787"><span class="lineNum">    1787 </span><span class="lineNoCov">          0 :   int16_t state = getPacketType(&amp;type);</span></a>
-<a name="1788"><span class="lineNum">    1788 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1789"><span class="lineNum">    1789 </span><span class="lineNoCov">          0 :   if(type != RADIOLIB_LR11X0_PACKET_TYPE_LORA) {</span></a>
-<a name="1790"><span class="lineNum">    1790 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_WRONG_MODEM);</span></a>
-<a name="1791"><span class="lineNum">    1791 </span>            :   }</a>
-<a name="1792"><span class="lineNum">    1792 </span>            : </a>
-<a name="1793"><span class="lineNum">    1793 </span>            :   // select CAD parameters</a>
-<a name="1794"><span class="lineNum">    1794 </span>            :   // TODO the magic numbers are based on Semtech examples, this is probably suboptimal</a>
-<a name="1795"><span class="lineNum">    1795 </span><span class="lineNoCov">          0 :   uint8_t num = symbolNum;</span></a>
-<a name="1796"><span class="lineNum">    1796 </span><span class="lineNoCov">          0 :   if(num == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
-<a name="1797"><span class="lineNum">    1797 </span><span class="lineNoCov">          0 :     num = 2;</span></a>
-<a name="1798"><span class="lineNum">    1798 </span>            :   }</a>
-<a name="1799"><span class="lineNum">    1799 </span>            :   </a>
-<a name="1800"><span class="lineNum">    1800 </span><span class="lineNoCov">          0 :   const uint8_t detPeakValues[8] = { 48, 48, 50, 55, 55, 59, 61, 65 };</span></a>
-<a name="1801"><span class="lineNum">    1801 </span><span class="lineNoCov">          0 :   uint8_t peak = detPeak;</span></a>
-<a name="1802"><span class="lineNum">    1802 </span><span class="lineNoCov">          0 :   if(peak == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
-<a name="1803"><span class="lineNum">    1803 </span><span class="lineNoCov">          0 :     peak = detPeakValues[this-&gt;spreadingFactor - 5];</span></a>
-<a name="1804"><span class="lineNum">    1804 </span>            :   }</a>
-<a name="1805"><span class="lineNum">    1805 </span>            : </a>
-<a name="1806"><span class="lineNum">    1806 </span><span class="lineNoCov">          0 :   uint8_t min = detMin;</span></a>
-<a name="1807"><span class="lineNum">    1807 </span><span class="lineNoCov">          0 :   if(min == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
-<a name="1808"><span class="lineNum">    1808 </span><span class="lineNoCov">          0 :     min = 10;</span></a>
-<a name="1809"><span class="lineNum">    1809 </span>            :   }</a>
-<a name="1810"><span class="lineNum">    1810 </span>            : </a>
-<a name="1811"><span class="lineNum">    1811 </span><span class="lineNoCov">          0 :   uint8_t mode = exitMode; </span></a>
-<a name="1812"><span class="lineNum">    1812 </span><span class="lineNoCov">          0 :   if(mode == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
-<a name="1813"><span class="lineNum">    1813 </span><span class="lineNoCov">          0 :     mode = RADIOLIB_LR11X0_CAD_EXIT_MODE_STBY_RC;</span></a>
+<a name="1717"><span class="lineNum">    1717 </span>            :   // check the firmware is up-to-date</a>
+<a name="1718"><span class="lineNum">    1718 </span><span class="lineNoCov">          0 :   if(flagFound &amp;&amp; (this-&gt;versionDevice != RADIOLIB_LR11X0_DEVICE_BOOT)) {</span></a>
+<a name="1719"><span class="lineNum">    1719 </span><span class="lineNoCov">          0 :     this-&gt;versionCombined = (uint16_t)versionInfo.fwMajor &lt;&lt; 8 | (uint16_t)versionInfo.fwMinor;</span></a>
+<a name="1720"><span class="lineNum">    1720 </span><span class="lineNoCov">          0 :     const uint16_t latestVersions[] = RADIOLIB_LR11X0_FIRMWARE_LATEST;</span></a>
+<a name="1721"><span class="lineNum">    1721 </span><span class="lineNoCov">          0 :     const uint16_t latest = latestVersions[(versionInfo.device - 1) &amp; 0x03];</span></a>
+<a name="1722"><span class="lineNum">    1722 </span><span class="lineNoCov">          0 :     if(this-&gt;versionCombined &lt; latest) {</span></a>
+<a name="1723"><span class="lineNum">    1723 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Detected outdated LR11x0 firmware (%04x &lt; %04x)&quot;, this-&gt;versionCombined, latest);</a>
+<a name="1724"><span class="lineNum">    1724 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;It is strongly recommended to update the firmware to version %04x!&quot;, latest);</a>
+<a name="1725"><span class="lineNum">    1725 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Outdated firmware may be missing some features and have security vulnerabilities&quot;);</a>
+<a name="1726"><span class="lineNum">    1726 </span>            :       RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;See RadioLib/examples/LR11x0/LR11x0_Firmware_Update for details&quot;);</a>
+<a name="1727"><span class="lineNum">    1727 </span>            :     }</a>
+<a name="1728"><span class="lineNum">    1728 </span>            :   }</a>
+<a name="1729"><span class="lineNum">    1729 </span>            :   </a>
+<a name="1730"><span class="lineNum">    1730 </span><span class="lineNoCov">          0 :   return(flagFound);</span></a>
+<a name="1731"><span class="lineNum">    1731 </span>            : }</a>
+<a name="1732"><span class="lineNum">    1732 </span>            : </a>
+<a name="1733"><span class="lineNum">    1733 </span><span class="lineNoCov">          0 : int16_t LR11x0::config(uint8_t modem) {</span></a>
+<a name="1734"><span class="lineNum">    1734 </span><span class="lineNoCov">          0 :   int16_t state = RADIOLIB_ERR_UNKNOWN;</span></a>
+<a name="1735"><span class="lineNum">    1735 </span>            : </a>
+<a name="1736"><span class="lineNum">    1736 </span>            :   // set Rx/Tx fallback mode to STDBY_RC</a>
+<a name="1737"><span class="lineNum">    1737 </span><span class="lineNoCov">          0 :   state = this-&gt;setRxTxFallbackMode(RADIOLIB_LR11X0_FALLBACK_MODE_STBY_RC);</span></a>
+<a name="1738"><span class="lineNum">    1738 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1739"><span class="lineNum">    1739 </span>            : </a>
+<a name="1740"><span class="lineNum">    1740 </span>            :   // clear IRQ</a>
+<a name="1741"><span class="lineNum">    1741 </span><span class="lineNoCov">          0 :   state = this-&gt;clearIrqState(RADIOLIB_LR11X0_IRQ_ALL);</span></a>
+<a name="1742"><span class="lineNum">    1742 </span><span class="lineNoCov">          0 :   state |= this-&gt;setDioIrqParams(RADIOLIB_LR11X0_IRQ_NONE);</span></a>
+<a name="1743"><span class="lineNum">    1743 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1744"><span class="lineNum">    1744 </span>            : </a>
+<a name="1745"><span class="lineNum">    1745 </span>            :   // calibrate all blocks</a>
+<a name="1746"><span class="lineNum">    1746 </span><span class="lineNoCov">          0 :   state = this-&gt;calibrate(RADIOLIB_LR11X0_CALIBRATE_ALL);</span></a>
+<a name="1747"><span class="lineNum">    1747 </span>            : </a>
+<a name="1748"><span class="lineNum">    1748 </span>            :   // wait for calibration completion</a>
+<a name="1749"><span class="lineNum">    1749 </span><span class="lineNoCov">          0 :   this-&gt;mod-&gt;hal-&gt;delay(5);</span></a>
+<a name="1750"><span class="lineNum">    1750 </span><span class="lineNoCov">          0 :   while(this-&gt;mod-&gt;hal-&gt;digitalRead(this-&gt;mod-&gt;getGpio())) {</span></a>
+<a name="1751"><span class="lineNum">    1751 </span><span class="lineNoCov">          0 :     this-&gt;mod-&gt;hal-&gt;yield();</span></a>
+<a name="1752"><span class="lineNum">    1752 </span>            :   }</a>
+<a name="1753"><span class="lineNum">    1753 </span>            :   </a>
+<a name="1754"><span class="lineNum">    1754 </span>            :   // if something failed, show the device errors</a>
+<a name="1755"><span class="lineNum">    1755 </span>            :   #if RADIOLIB_DEBUG_BASIC</a>
+<a name="1756"><span class="lineNum">    1756 </span>            :   if(state != RADIOLIB_ERR_NONE) {</a>
+<a name="1757"><span class="lineNum">    1757 </span>            :     // unless mode is forced to standby, device errors will be 0</a>
+<a name="1758"><span class="lineNum">    1758 </span>            :     standby();</a>
+<a name="1759"><span class="lineNum">    1759 </span>            :     uint16_t errors = 0;</a>
+<a name="1760"><span class="lineNum">    1760 </span>            :     getErrors(&amp;errors);</a>
+<a name="1761"><span class="lineNum">    1761 </span>            :     RADIOLIB_DEBUG_BASIC_PRINTLN(&quot;Calibration failed, device errors: 0x%X&quot;, errors);</a>
+<a name="1762"><span class="lineNum">    1762 </span>            :   }</a>
+<a name="1763"><span class="lineNum">    1763 </span>            :   #else</a>
+<a name="1764"><span class="lineNum">    1764 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1765"><span class="lineNum">    1765 </span>            :   #endif</a>
+<a name="1766"><span class="lineNum">    1766 </span>            : </a>
+<a name="1767"><span class="lineNum">    1767 </span>            :   // enable driving DIOs in sleep mode</a>
+<a name="1768"><span class="lineNum">    1768 </span>            :   // this prevents IRQ going high when the device goes to sleep</a>
+<a name="1769"><span class="lineNum">    1769 </span>            :   // especially when using Rx duty cycle, this would make it look like received packets</a>
+<a name="1770"><span class="lineNum">    1770 </span>            :   // there seems to be no measurable impact on power consumption in sleep mode</a>
+<a name="1771"><span class="lineNum">    1771 </span>            :   // also, LR1110 firmware before 0306 did not have this command</a>
+<a name="1772"><span class="lineNum">    1772 </span><span class="lineNoCov">          0 :   if(!((this-&gt;versionDevice == RADIOLIB_LR11X0_DEVICE_LR1110) &amp;&amp; (this-&gt;versionCombined &lt; 0x0306))) {</span></a>
+<a name="1773"><span class="lineNum">    1773 </span><span class="lineNoCov">          0 :     state = this-&gt;driveDiosInSleepMode(true);</span></a>
+<a name="1774"><span class="lineNum">    1774 </span><span class="lineNoCov">          0 :     RADIOLIB_ASSERT(state);</span></a>
+<a name="1775"><span class="lineNum">    1775 </span>            :   }</a>
+<a name="1776"><span class="lineNum">    1776 </span>            : </a>
+<a name="1777"><span class="lineNum">    1777 </span>            :   // set modem</a>
+<a name="1778"><span class="lineNum">    1778 </span><span class="lineNoCov">          0 :   state = this-&gt;setPacketType(modem);</span></a>
+<a name="1779"><span class="lineNum">    1779 </span><span class="lineNoCov">          0 :   return(state);</span></a>
+<a name="1780"><span class="lineNum">    1780 </span>            : }</a>
+<a name="1781"><span class="lineNum">    1781 </span>            : </a>
+<a name="1782"><span class="lineNum">    1782 </span><span class="lineNoCov">          0 : int16_t LR11x0::setPacketMode(uint8_t mode, uint8_t len) {</span></a>
+<a name="1783"><span class="lineNum">    1783 </span>            :   // check active modem</a>
+<a name="1784"><span class="lineNum">    1784 </span><span class="lineNoCov">          0 :   uint8_t type = RADIOLIB_LR11X0_PACKET_TYPE_NONE;</span></a>
+<a name="1785"><span class="lineNum">    1785 </span><span class="lineNoCov">          0 :   int16_t state = getPacketType(&amp;type);</span></a>
+<a name="1786"><span class="lineNum">    1786 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1787"><span class="lineNum">    1787 </span><span class="lineNoCov">          0 :   if(type != RADIOLIB_LR11X0_PACKET_TYPE_GFSK) {</span></a>
+<a name="1788"><span class="lineNum">    1788 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_WRONG_MODEM);</span></a>
+<a name="1789"><span class="lineNum">    1789 </span>            :   }</a>
+<a name="1790"><span class="lineNum">    1790 </span>            : </a>
+<a name="1791"><span class="lineNum">    1791 </span>            :   // set requested packet mode</a>
+<a name="1792"><span class="lineNum">    1792 </span><span class="lineNoCov">          0 :   state = setPacketParamsGFSK(this-&gt;preambleLengthGFSK, this-&gt;preambleDetLength, this-&gt;syncWordLength, this-&gt;addrComp, mode, len, this-&gt;crcTypeGFSK, this-&gt;whitening);</span></a>
+<a name="1793"><span class="lineNum">    1793 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1794"><span class="lineNum">    1794 </span>            : </a>
+<a name="1795"><span class="lineNum">    1795 </span>            :   // update cached value</a>
+<a name="1796"><span class="lineNum">    1796 </span><span class="lineNoCov">          0 :   this-&gt;packetType = mode;</span></a>
+<a name="1797"><span class="lineNum">    1797 </span><span class="lineNoCov">          0 :   return(state);</span></a>
+<a name="1798"><span class="lineNum">    1798 </span>            : }</a>
+<a name="1799"><span class="lineNum">    1799 </span>            : </a>
+<a name="1800"><span class="lineNum">    1800 </span><span class="lineNoCov">          0 : int16_t LR11x0::startCad(uint8_t symbolNum, uint8_t detPeak, uint8_t detMin, uint8_t exitMode, RadioLibTime_t timeout) {</span></a>
+<a name="1801"><span class="lineNum">    1801 </span>            :   // check active modem</a>
+<a name="1802"><span class="lineNum">    1802 </span><span class="lineNoCov">          0 :   uint8_t type = RADIOLIB_LR11X0_PACKET_TYPE_NONE;</span></a>
+<a name="1803"><span class="lineNum">    1803 </span><span class="lineNoCov">          0 :   int16_t state = getPacketType(&amp;type);</span></a>
+<a name="1804"><span class="lineNum">    1804 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1805"><span class="lineNum">    1805 </span><span class="lineNoCov">          0 :   if(type != RADIOLIB_LR11X0_PACKET_TYPE_LORA) {</span></a>
+<a name="1806"><span class="lineNum">    1806 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_WRONG_MODEM);</span></a>
+<a name="1807"><span class="lineNum">    1807 </span>            :   }</a>
+<a name="1808"><span class="lineNum">    1808 </span>            : </a>
+<a name="1809"><span class="lineNum">    1809 </span>            :   // select CAD parameters</a>
+<a name="1810"><span class="lineNum">    1810 </span>            :   // TODO the magic numbers are based on Semtech examples, this is probably suboptimal</a>
+<a name="1811"><span class="lineNum">    1811 </span><span class="lineNoCov">          0 :   uint8_t num = symbolNum;</span></a>
+<a name="1812"><span class="lineNum">    1812 </span><span class="lineNoCov">          0 :   if(num == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
+<a name="1813"><span class="lineNum">    1813 </span><span class="lineNoCov">          0 :     num = 2;</span></a>
 <a name="1814"><span class="lineNum">    1814 </span>            :   }</a>
-<a name="1815"><span class="lineNum">    1815 </span>            : </a>
-<a name="1816"><span class="lineNum">    1816 </span><span class="lineNoCov">          0 :   uint32_t timeout_raw = (float)timeout / 30.52f;</span></a>
-<a name="1817"><span class="lineNum">    1817 </span>            : </a>
-<a name="1818"><span class="lineNum">    1818 </span>            :   // set CAD parameters</a>
-<a name="1819"><span class="lineNum">    1819 </span>            :   // TODO add configurable exit mode and timeout</a>
-<a name="1820"><span class="lineNum">    1820 </span><span class="lineNoCov">          0 :   state = setCadParams(num, peak, min, mode, timeout_raw);</span></a>
-<a name="1821"><span class="lineNum">    1821 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1822"><span class="lineNum">    1822 </span>            : </a>
-<a name="1823"><span class="lineNum">    1823 </span>            :   // start CAD</a>
-<a name="1824"><span class="lineNum">    1824 </span><span class="lineNoCov">          0 :   return(setCad());</span></a>
-<a name="1825"><span class="lineNum">    1825 </span>            : }</a>
+<a name="1815"><span class="lineNum">    1815 </span>            :   </a>
+<a name="1816"><span class="lineNum">    1816 </span><span class="lineNoCov">          0 :   const uint8_t detPeakValues[8] = { 48, 48, 50, 55, 55, 59, 61, 65 };</span></a>
+<a name="1817"><span class="lineNum">    1817 </span><span class="lineNoCov">          0 :   uint8_t peak = detPeak;</span></a>
+<a name="1818"><span class="lineNum">    1818 </span><span class="lineNoCov">          0 :   if(peak == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
+<a name="1819"><span class="lineNum">    1819 </span><span class="lineNoCov">          0 :     peak = detPeakValues[this-&gt;spreadingFactor - 5];</span></a>
+<a name="1820"><span class="lineNum">    1820 </span>            :   }</a>
+<a name="1821"><span class="lineNum">    1821 </span>            : </a>
+<a name="1822"><span class="lineNum">    1822 </span><span class="lineNoCov">          0 :   uint8_t min = detMin;</span></a>
+<a name="1823"><span class="lineNum">    1823 </span><span class="lineNoCov">          0 :   if(min == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
+<a name="1824"><span class="lineNum">    1824 </span><span class="lineNoCov">          0 :     min = 10;</span></a>
+<a name="1825"><span class="lineNum">    1825 </span>            :   }</a>
 <a name="1826"><span class="lineNum">    1826 </span>            : </a>
-<a name="1827"><span class="lineNum">    1827 </span><span class="lineNoCov">          0 : int16_t LR11x0::setHeaderType(uint8_t hdrType, size_t len) {</span></a>
-<a name="1828"><span class="lineNum">    1828 </span>            :   // check active modem</a>
-<a name="1829"><span class="lineNum">    1829 </span><span class="lineNoCov">          0 :   uint8_t type = RADIOLIB_LR11X0_PACKET_TYPE_NONE;</span></a>
-<a name="1830"><span class="lineNum">    1830 </span><span class="lineNoCov">          0 :   int16_t state = getPacketType(&amp;type);</span></a>
-<a name="1831"><span class="lineNum">    1831 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1832"><span class="lineNum">    1832 </span><span class="lineNoCov">          0 :   if(type != RADIOLIB_LR11X0_PACKET_TYPE_LORA) {</span></a>
-<a name="1833"><span class="lineNum">    1833 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_WRONG_MODEM);</span></a>
-<a name="1834"><span class="lineNum">    1834 </span>            :   }</a>
-<a name="1835"><span class="lineNum">    1835 </span>            : </a>
-<a name="1836"><span class="lineNum">    1836 </span>            :   // set requested packet mode</a>
-<a name="1837"><span class="lineNum">    1837 </span><span class="lineNoCov">          0 :   state = setPacketParamsLoRa(this-&gt;preambleLengthLoRa, hdrType, len, this-&gt;crcTypeLoRa, this-&gt;invertIQEnabled);</span></a>
-<a name="1838"><span class="lineNum">    1838 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
-<a name="1839"><span class="lineNum">    1839 </span>            : </a>
-<a name="1840"><span class="lineNum">    1840 </span>            :   // update cached value</a>
-<a name="1841"><span class="lineNum">    1841 </span><span class="lineNoCov">          0 :   this-&gt;headerType = hdrType;</span></a>
-<a name="1842"><span class="lineNum">    1842 </span><span class="lineNoCov">          0 :   this-&gt;implicitLen = len;</span></a>
-<a name="1843"><span class="lineNum">    1843 </span>            : </a>
-<a name="1844"><span class="lineNum">    1844 </span><span class="lineNoCov">          0 :   return(state);</span></a>
-<a name="1845"><span class="lineNum">    1845 </span>            : }</a>
-<a name="1846"><span class="lineNum">    1846 </span>            : </a>
-<a name="1847"><span class="lineNum">    1847 </span><span class="lineNoCov">          0 : Module* LR11x0::getMod() {</span></a>
-<a name="1848"><span class="lineNum">    1848 </span><span class="lineNoCov">          0 :   return(this-&gt;mod);</span></a>
-<a name="1849"><span class="lineNum">    1849 </span>            : }</a>
-<a name="1850"><span class="lineNum">    1850 </span>            : </a>
-<a name="1851"><span class="lineNum">    1851 </span>            : #endif</a>
+<a name="1827"><span class="lineNum">    1827 </span><span class="lineNoCov">          0 :   uint8_t mode = exitMode; </span></a>
+<a name="1828"><span class="lineNum">    1828 </span><span class="lineNoCov">          0 :   if(mode == RADIOLIB_LR11X0_CAD_PARAM_DEFAULT) {</span></a>
+<a name="1829"><span class="lineNum">    1829 </span><span class="lineNoCov">          0 :     mode = RADIOLIB_LR11X0_CAD_EXIT_MODE_STBY_RC;</span></a>
+<a name="1830"><span class="lineNum">    1830 </span>            :   }</a>
+<a name="1831"><span class="lineNum">    1831 </span>            : </a>
+<a name="1832"><span class="lineNum">    1832 </span><span class="lineNoCov">          0 :   uint32_t timeout_raw = (float)timeout / 30.52f;</span></a>
+<a name="1833"><span class="lineNum">    1833 </span>            : </a>
+<a name="1834"><span class="lineNum">    1834 </span>            :   // set CAD parameters</a>
+<a name="1835"><span class="lineNum">    1835 </span>            :   // TODO add configurable exit mode and timeout</a>
+<a name="1836"><span class="lineNum">    1836 </span><span class="lineNoCov">          0 :   state = setCadParams(num, peak, min, mode, timeout_raw);</span></a>
+<a name="1837"><span class="lineNum">    1837 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1838"><span class="lineNum">    1838 </span>            : </a>
+<a name="1839"><span class="lineNum">    1839 </span>            :   // start CAD</a>
+<a name="1840"><span class="lineNum">    1840 </span><span class="lineNoCov">          0 :   return(setCad());</span></a>
+<a name="1841"><span class="lineNum">    1841 </span>            : }</a>
+<a name="1842"><span class="lineNum">    1842 </span>            : </a>
+<a name="1843"><span class="lineNum">    1843 </span><span class="lineNoCov">          0 : int16_t LR11x0::setHeaderType(uint8_t hdrType, size_t len) {</span></a>
+<a name="1844"><span class="lineNum">    1844 </span>            :   // check active modem</a>
+<a name="1845"><span class="lineNum">    1845 </span><span class="lineNoCov">          0 :   uint8_t type = RADIOLIB_LR11X0_PACKET_TYPE_NONE;</span></a>
+<a name="1846"><span class="lineNum">    1846 </span><span class="lineNoCov">          0 :   int16_t state = getPacketType(&amp;type);</span></a>
+<a name="1847"><span class="lineNum">    1847 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1848"><span class="lineNum">    1848 </span><span class="lineNoCov">          0 :   if(type != RADIOLIB_LR11X0_PACKET_TYPE_LORA) {</span></a>
+<a name="1849"><span class="lineNum">    1849 </span><span class="lineNoCov">          0 :     return(RADIOLIB_ERR_WRONG_MODEM);</span></a>
+<a name="1850"><span class="lineNum">    1850 </span>            :   }</a>
+<a name="1851"><span class="lineNum">    1851 </span>            : </a>
+<a name="1852"><span class="lineNum">    1852 </span>            :   // set requested packet mode</a>
+<a name="1853"><span class="lineNum">    1853 </span><span class="lineNoCov">          0 :   state = setPacketParamsLoRa(this-&gt;preambleLengthLoRa, hdrType, len, this-&gt;crcTypeLoRa, this-&gt;invertIQEnabled);</span></a>
+<a name="1854"><span class="lineNum">    1854 </span><span class="lineNoCov">          0 :   RADIOLIB_ASSERT(state);</span></a>
+<a name="1855"><span class="lineNum">    1855 </span>            : </a>
+<a name="1856"><span class="lineNum">    1856 </span>            :   // update cached value</a>
+<a name="1857"><span class="lineNum">    1857 </span><span class="lineNoCov">          0 :   this-&gt;headerType = hdrType;</span></a>
+<a name="1858"><span class="lineNum">    1858 </span><span class="lineNoCov">          0 :   this-&gt;implicitLen = len;</span></a>
+<a name="1859"><span class="lineNum">    1859 </span>            : </a>
+<a name="1860"><span class="lineNum">    1860 </span><span class="lineNoCov">          0 :   return(state);</span></a>
+<a name="1861"><span class="lineNum">    1861 </span>            : }</a>
+<a name="1862"><span class="lineNum">    1862 </span>            : </a>
+<a name="1863"><span class="lineNum">    1863 </span><span class="lineNoCov">          0 : Module* LR11x0::getMod() {</span></a>
+<a name="1864"><span class="lineNum">    1864 </span><span class="lineNoCov">          0 :   return(this-&gt;mod);</span></a>
+<a name="1865"><span class="lineNum">    1865 </span>            : }</a>
+<a name="1866"><span class="lineNum">    1866 </span>            : </a>
+<a name="1867"><span class="lineNum">    1867 </span>            : #endif</a>
 </pre>
       </td>
     </tr>

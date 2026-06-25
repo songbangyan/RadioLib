@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2026-06-21 06:18:53</td>
+            <td class="headerValue">2026-06-25 12:20:23</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">14</td>
@@ -282,7 +282,7 @@
 <a name="220"><span class="lineNum">     220 </span><span class="lineNoCov">          0 :     uint8_t pull = dioNum == 0 ? RADIOLIB_LR2021_DIO_SLEEP_PULL_UP : RADIOLIB_LR2021_DIO_SLEEP_PULL_AUTO;</span></a>
 <a name="221"><span class="lineNum">     221 </span>            :     // enable RF control for this pin and set the modes in which it is active</a>
 <a name="222"><span class="lineNum">     222 </span><span class="lineNoCov">          0 :     (void)this-&gt;setDioFunction(dioNum + 5, RADIOLIB_LR2021_DIO_FUNCTION_RF_SWITCH, pull);</span></a>
-<a name="223"><span class="lineNum">     223 </span><span class="lineNoCov">          0 :     (void)this-&gt;setDioRfSwitchConfig(dioNum + 5, dioConfigs[i]);</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineNoCov">          0 :     (void)this-&gt;setDioRfSwitchConfig(dioNum + 5, dioConfigs[dioNum]);</span></a>
 <a name="224"><span class="lineNum">     224 </span>            :   }</a>
 <a name="225"><span class="lineNum">     225 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="226"><span class="lineNum">     226 </span>            : </a>
